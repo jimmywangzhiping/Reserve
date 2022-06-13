@@ -1,0 +1,11 @@
+type Query{
+    getReserveRecordAll: [Record]
+}
+
+type Record {
+    _id: String
+    tableSize: Int
+    userId: String
+    createdAt:String
+    status: String
+}
