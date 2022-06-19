@@ -1,24 +1,19 @@
-# Reserve
+# reserve-web
 
-## 技术栈
+> 技术栈 vue、axios、element-ui
 
-Nest.js + MongoDB + jwt + Graphql +swagger 等
+## Build Setup
 
-后端项目地址：https://github.com/jimmywangzhiping/Reserve
+``` bash
+# install dependencies
+npm install
 
-## Mongodb连接地址
-config.development.ts里配置mongodb.connection: 'mongodb://localhost/reserve'
+# serve with hot reload at localhost:8080
+npm run dev
 
-## Jwt
-config.development.ts里配置jwt.secret: 'jimmyWang'
+# build for production with minification
+npm run build
 
-## 项目运行
-$ yarn
-
-$ yarn start
-
-## Api地址
-http://localhost:3000/api/
-
-## graphql地址
-http://localhost:3000/graphql
+# build for production and view the bundle analyzer report
+npm run build --report
+```
