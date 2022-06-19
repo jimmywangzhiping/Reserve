@@ -8,6 +8,7 @@ import { Visitor } from '../interface/visitor.interface';
 import { promisify } from 'util';
 import { ApiException } from '../../../common/exceptions/api.exception';
 import { JwtService } from '@nestjs/jwt';
+import { VisitorRole } from '../schemas/types';
 
 @Injectable()
 export class VisitorService {
@@ -56,8 +57,9 @@ export class VisitorService {
       cipher.final(),
     ]).toString('base64');
     body.password = encryptedText;
+    body.role = VisitorRole.GUEST;
     const result = await this.addOne(body);
-    return { userName: result.userName, _id: result._id };
+    return { errorCode:200, userName: result.userName, _id: result._id };
   }
   /**
    * 登录
@@ -84,7 +86,7 @@ export class VisitorService {
           expiresIn: this.configService.get<string>('jwt.expiresIn'),
         },
       );
-      return { token: jwtSign, role: user.role };
+      return { errorCode:200, token: jwtSign, role: user.role };
     } else {
       return new ApiException().errorMsg(10002);
     }

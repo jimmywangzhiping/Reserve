@@ -27,6 +27,7 @@ export class CreateVisitorDTO {
     description: '来源',
   })
   readonly utmSource: string;
+  role:string;
 }
 
 export class LoginDTO {

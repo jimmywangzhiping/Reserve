@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.enableCors();
   const options = new DocumentBuilder()
     .setTitle('Reserve api')
     .setDescription('The Reserve API description')

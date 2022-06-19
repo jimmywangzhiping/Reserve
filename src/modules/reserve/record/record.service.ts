@@ -56,6 +56,13 @@ export class RecordService {
     return await this.recordModel.find();
   }
 
+   /**
+   * 查询userid所有预约
+   */
+    async getReserveRecordsByUserId(userId:string): Promise<Record[]> {
+      return await this.recordModel.find({userId});
+    }
+
   // 查找记录
   async findOneById(_id: string): Promise<Record> {
     return await this.recordModel.findById(_id);
@@ -73,9 +80,9 @@ export class RecordService {
   async getReserveRecordById(userId: string, _id: string): Promise<any> {
     const user = await this.visitorService.findById(userId);
     if (!user) return new ApiException().errorMsg(10001);
-    if (user.role !== VisitorRole.ADMIN) {
-      return new ApiException().errorMsg(30001);
-    }
+    // if (user.role !== VisitorRole.ADMIN) {
+    //   return new ApiException().errorMsg(30001);
+    // }
     try {
       return await this.findOneById(_id);
     } catch (error) {
@@ -90,9 +97,10 @@ export class RecordService {
     const user = await this.visitorService.findById(userId);
     if (!user) return new ApiException().errorMsg(10001);
     if (user.role === VisitorRole.ADMIN || user.role === VisitorRole.GUEST) {
-      const record = await this.find(userId, 'active');
+      const record = await this.find(userId, 'ACTIVE');
       if (record && record.length > 0)
         return new ApiException().errorMsg(20001);
+      body.userId = userId;
       const result = await this.addOne(body);
       return { _id: result._id };
     } else {
@@ -112,14 +120,16 @@ export class RecordService {
     record.tableSize = body.tableSize;
     record.status = ReservationStatus[body.status];
     record.isDel = body.isDel;
+    record.reserveAt = body.reserveAt;
     // 管理员可以更新预约信息 完成 取消
     if (user.role === VisitorRole.ADMIN) {
       const result = await record.updateOne(record);
       return result && result.modifiedCount === 1 ? true : false;
     } else {
-      if (record.userId.toString() === user._id) {
+      if (record.userId.toString() === userId) {
         if (body.status && body.status === ReservationStatus.COMPLETE)
           return new ApiException().errorMsg(30001);
+        console.log('record', record) 
         const result = await record.updateOne(record);
         return result && result.modifiedCount === 1 ? true : false;
       } else {

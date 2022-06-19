@@ -17,6 +17,8 @@ export const recordSchema = new Schema(
       default: 1,
     },
     utmSource: { type: String },
+    mobile: { type: String },
+    reserveAt: { type: Date, required: true, default: new Date() },
     createdAt: { type: Date, required: true, default: new Date() },
     updatedAt: { type: Date, required: true, default: new Date() },
     isDel: { type: Number, default: 0 },

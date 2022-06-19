@@ -6,6 +6,6 @@ type Record {
     _id: String
     tableSize: Int
     userId: String
-    createdAt:String
+    reserveAt:String
     status: String
 }

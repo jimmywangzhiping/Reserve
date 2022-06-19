@@ -75,12 +75,11 @@ export class RecordController {
   })
   @ApiOperation({ summary: '获取预约信息详情' })
   @ApiOkResponse({ description: '获取预约信息详情成功' })
-  @Get(':id')
+  @Get('info/:id')
   @Authorize()
   @UseInterceptors(ApiTransformInterceptor)
   async getReserveRecordById(@Visitor() visitor: IVisitor, @Param() params) {
     const userId = visitor.uid;
-    console.log('params', params);
     return await this.recordService.getReserveRecordById(userId, params.id);
   }
 
@@ -95,7 +94,7 @@ export class RecordController {
   })
   @ApiOperation({ summary: '获取预约信息' })
   @ApiOkResponse({ description: '获取预约信息成功' })
-  @Post('getReserveRecords')
+  @Get('getReserveRecords')
   @Authorize()
   @UseInterceptors(ApiTransformInterceptor)
   async getReserveRecords(
@@ -108,6 +107,20 @@ export class RecordController {
       body.status,
       body.beginDate,
       body.endDate,
+    );
+  }
+
+  @ApiOperation({ summary: '获取UserId预约信息' })
+  @ApiOkResponse({ description: '获取UserId预约信息成功' })
+  @Get('getReserveRecordsByUserId')
+  @Authorize()
+  @UseInterceptors(ApiTransformInterceptor)
+  async getReserveRecordsByUserId(
+    @Visitor() visitor: IVisitor,
+  ) {
+    const userId = visitor.uid;
+    return await this.recordService.getReserveRecordsByUserId(
+      userId,
     );
   }
 }

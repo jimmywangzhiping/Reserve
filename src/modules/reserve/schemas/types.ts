@@ -1,7 +1,7 @@
 export enum ReservationStatus {
-  ACTIVE = 'active',
-  CANCEL = 'canceled',
-  COMPLETE = 'completed',
+  ACTIVE = 'ACTIVE',
+  CANCEL = 'CANCEL',
+  COMPLETE = 'COMPLETE',
 }
 
 export enum VisitorRole {

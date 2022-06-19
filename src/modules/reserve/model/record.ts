@@ -5,7 +5,7 @@ export class Record {
   @Field() _id?: string;
   @Field() tableSize: number;
   @Field((type) => ID) userId: string;
-  @Field() createdAt: Date;
+  @Field() reserveAt: Date;
   @Field() status: string;
 }
 
@@ -14,6 +14,6 @@ export class RecordInput implements Partial<Record> {
   @Field() _id?: string;
   @Field() tableSize: number;
   @Field((type) => ID, { nullable: true }) userId: string;
-  @Field() createdAt: Date;
+  @Field() reserveAt: Date;
   @Field((type) => String, { nullable: true }) status: string;
 }

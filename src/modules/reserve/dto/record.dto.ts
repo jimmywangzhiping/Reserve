@@ -14,6 +14,17 @@ export class CreateRecordDTO {
     default: 1,
   })
   readonly tableSize: number;
+  @ApiProperty({
+    description: '预约人手机号码',
+    type: String,
+  })
+  mobile:String;
+  @ApiProperty({
+    description: '预约日期',
+    type: Date,
+  })
+  reserveAt: Date;
+  userId:String;
 }
 
 // 修改记录
@@ -42,6 +53,17 @@ export class EditRecordDTO {
     default: 0,
   })
   readonly isDel: number;
+
+  @ApiProperty({
+    description: '预约人手机号码',
+    type: String,
+  })
+  mobile:String;
+  @ApiProperty({
+    description: '预约日期',
+    type: Date,
+  })
+  reserveAt: Date;
 }
 
 // 搜索记录

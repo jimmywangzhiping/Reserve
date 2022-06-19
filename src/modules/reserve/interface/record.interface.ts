@@ -7,6 +7,7 @@ export interface Record extends Document {
   status: ReservationStatus;
   tableSize: number;
   readonly createdAt: Date;
+  reserveAt: Date;
   updatedAt: Date;
   isDel: number;
 }
